@@ -74,26 +74,6 @@ function ActivityPage() {
 
     return (
         <div style={{ padding: 20 }}>
-            {/* Vissza a főoldalra gomb */}
-            <button
-                onClick={goToHomePage}
-                style={{
-                    position: 'absolute',
-                    top: 20,
-                    right: 20,
-                    padding: '10px 20px',
-                    fontSize: '16px',
-                    backgroundColor: '#007BFF',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
-                    transition: 'background-color 0.3s'
-                }}
-            >
-                Back to Main Page
-            </button>
-
             <h2>Tevékenységek kezelése</h2>
 
             {/* Új activity hozzáadása */}
