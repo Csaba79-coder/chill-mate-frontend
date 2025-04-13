@@ -1,80 +1,74 @@
 import React, { useEffect, useState } from 'react';
-import ActivityService from '../services/activityService';
-import { useNavigate } from 'react-router-dom'; // a navigációhoz szükséges hook
+import CityService from '../services/cityService'; // City service importálása
+import { useNavigate } from 'react-router-dom';
 
-function ActivityPage() {
-    const [activities, setActivities] = useState([]);
+function CityPage() {
+    const [cities, setCities] = useState([]);
     const [newName, setNewName] = useState('');
     const [searchName, setSearchName] = useState('');
     const [searchResult, setSearchResult] = useState(null);
     const [searchId, setSearchId] = useState('');
     const [searchResultById, setSearchResultById] = useState(null);
 
-    const navigate = useNavigate(); // a navigációs hook beállítása
+    const navigate = useNavigate();
 
     useEffect(() => {
-        fetchActivities();
+        fetchCities();
     }, []);
 
-    const fetchActivities = async () => {
-        const response = await ActivityService.getAllActivities();
-        setActivities(response.data);
+    const fetchCities = async () => {
+        const response = await CityService.getAllCities();
+        setCities(response.data);
     };
 
     const handleCreate = async () => {
-        await ActivityService.createActivity({ name: newName });
+        await CityService.createCity({ name: newName });
         setNewName('');
-        fetchActivities();
+        fetchCities();
     };
 
     const handleDelete = async (id) => {
-        await ActivityService.deleteActivity(id);
-        fetchActivities();
+        await CityService.deleteCity(id);
+        fetchCities();
     };
 
     const handleSearch = async () => {
-        // Töröljük az előző keresési eredményeket, mielőtt új keresést indítunk
         setSearchResult(null);
         setSearchResultById(null);
 
-        const encodedSearchName = encodeURIComponent(searchName); // URL kódolás
+        const encodedSearchName = encodeURIComponent(searchName);
         try {
-            const response = await ActivityService.getActivityByName(encodedSearchName);
+            const response = await CityService.getCityByName(encodedSearchName);
             if (response.data && response.data.name) {
-                setSearchResult(response.data); // Ha van találat, azt megjelenítjük
+                setSearchResult(response.data);
             } else {
-                setSearchResult({ error: 'Nincs ilyen activity.' }); // Ha nincs találat
+                setSearchResult({ error: 'Nincs ilyen város.' });
             }
         } catch (err) {
-            setSearchResult({ error: 'Nincs ilyen activity.' }); // Hiba kezelése
+            setSearchResult({ error: 'Nincs ilyen város.' });
         }
-        // Keresés után töröljük a kereső szöveget
         setSearchName('');
     };
 
     const handleSearchById = async () => {
-        // Töröljük az előző keresési eredményeket, mielőtt új keresést indítunk
         setSearchResult(null);
         setSearchResultById(null);
 
         try {
-            const response = await ActivityService.getActivityById(searchId);
+            const response = await CityService.getCityById(searchId);
             setSearchResultById(response.data);
         } catch (err) {
-            setSearchResultById({ error: 'Nincs ilyen ID-vel rendelkező activity.' });
+            setSearchResultById({ error: 'Nincs ilyen ID-vel rendelkező város.' });
         }
-        // Keresés után töröljük az ID kereső szöveget
         setSearchId('');
     };
 
-    // Navigálás a főoldalra
     const goToHomePage = () => {
-        navigate('/'); // Visszaviszi a főoldalra
+        navigate('/');
     };
 
     return (
         <div style={{ padding: 20 }}>
-            {/* Vissza a főoldalra gomb */}
             <button
                 onClick={goToHomePage}
                 style={{
@@ -94,20 +88,18 @@ function ActivityPage() {
                 Back to Main Page
             </button>
 
-            <h2>Tevékenységek kezelése</h2>
+            <h2>Városok kezelése</h2>
 
-            {/* Új activity hozzáadása */}
             <div>
                 <input
                     type="text"
-                    placeholder="Új tevékenység neve"
+                    placeholder="Új város neve"
                     value={newName}
                     onChange={(e) => setNewName(e.target.value)}
                 />
                 <button onClick={handleCreate}>Hozzáadás</button>
             </div>
 
-            {/* Keresés név alapján */}
             <div style={{ marginTop: 20 }}>
                 <input
                     type="text"
@@ -128,7 +120,6 @@ function ActivityPage() {
                 )}
             </div>
 
-            {/* Keresés ID alapján */}
             <div style={{ marginTop: 20 }}>
                 <input
                     type="text"
@@ -149,12 +140,11 @@ function ActivityPage() {
                 )}
             </div>
 
-            {/* Activity lista */}
             <ul style={{ marginTop: 30 }}>
-                {activities.map((activity) => (
-                    <li key={activity.id}>
-                        {activity.name} (ID: {activity.id})
-                        <button onClick={() => handleDelete(activity.id)} style={{ marginLeft: 10 }}>
+                {cities.map((city) => (
+                    <li key={city.id}>
+                        {city.name} (ID: {city.id})
+                        <button onClick={() => handleDelete(city.id)} style={{ marginLeft: 10 }}>
                             Törlés
                         </button>
                     </li>
@@ -164,4 +154,4 @@ function ActivityPage() {
     );
 }
 
-export default ActivityPage;
+export default CityPage;
