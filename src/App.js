@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import HobbyPage from "./pages/HobbyPage";
 import MoviePage from "./pages/MoviePage";
 import MusicGenrePage from "./pages/MusicGenrePage";
+import SportPage from "./pages/SportPage";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/hobbies" element={<HobbyPage />} />
                     <Route path="/movies" element={<MoviePage />} />
                     <Route path="/music-genres" element={<MusicGenrePage />} />
+                    <Route path="/sports" element={<SportPage />} />
                 </Routes>
                 <Footer /> {/* Footer hozzáadása */}
             </div>
