@@ -9,7 +9,7 @@ function Header() {
             <nav>
                 <ul>
                     <li><Link to="/">Főoldal</Link></li>
-                    <li><Link to="/activities">Aktivitások</Link></li>
+                    <li><Link to="/activities">Tevékenységek</Link></li>
                     <li><Link to="/cities">Városok</Link></li>
                 </ul>
             </nav>
