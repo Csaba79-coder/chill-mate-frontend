@@ -8,8 +8,8 @@ function HomePage() {
     return (
         <div className="home-page">
             <header className="home-header">
-                <img src={require("../assets/pannon-logo.png")} alt="Suli Logo" className="home-logo" />
                 <h1>Üdvözöllek a Chill Mate alkalmazásban!</h1>
+                <img src={require("../assets/pannon-logo.png")} alt="Suli Logo" className="home-logo" />
                 <p>Ez egy webalkalmazás, ami segít a felhasználók kezelésében és megjeleníti az adatbázis tartalmát.</p>
             </header>
         </div>
