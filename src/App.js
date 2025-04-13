@@ -7,6 +7,7 @@ import CityPage from './pages/CityPage';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HobbyPage from "./pages/HobbyPage";
+import MoviePage from "./pages/MoviePage";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                     <Route path="/activities" element={<ActivityPage />} />
                     <Route path="/cities" element={<CityPage />} />
                     <Route path="/hobbies" element={<HobbyPage />} />
+                    <Route path="/movies" element={<MoviePage />} />
                 </Routes>
                 <Footer /> {/* Footer hozzáadása */}
             </div>
