@@ -13,6 +13,7 @@ function Header() {
                     <li><Link to="/cities">Városok</Link></li>
                     <li><Link to="/hobbies">Kedvenc időtöltés</Link></li>
                     <li><Link to="/movies">Filmek</Link></li>
+                    <li><Link to="/music-genres">Zenei műfajok</Link></li>
                 </ul>
             </nav>
         </header>
