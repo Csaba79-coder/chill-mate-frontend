@@ -22,6 +22,8 @@ function MoviePage() {
     };
 
     const handleCreate = async () => {
+        setSearchResult(null);
+        setSearchResultById(null);
         await MovieService.createMovie({ title: newTitle });
         setNewTitle('');
         fetchMovies();

@@ -22,6 +22,8 @@ function SportPage() {
     };
 
     const handleCreate = async () => {
+        setSearchResult(null);
+        setSearchResultById(null);
         await SportService.createSport({ name: newName });
         setNewName('');
         fetchSports();

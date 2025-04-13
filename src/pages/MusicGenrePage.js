@@ -22,6 +22,8 @@ function MusicGenrePage() {
     };
 
     const handleCreate = async () => {
+        setSearchResult(null);
+        setSearchResultById(null);
         await MusicGenreService.createGenre({ genre: newGenre });
         setNewGenre('');
         fetchGenres();
@@ -69,7 +71,7 @@ function MusicGenrePage() {
 
     return (
         <div style={{ padding: 20 }}>
-            <h2>Műfajok kezelése</h2>
+            <h2>Zenei műfajok kezelése</h2>
 
             <div>
                 <input

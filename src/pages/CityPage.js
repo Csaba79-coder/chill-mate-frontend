@@ -22,6 +22,10 @@ function CityPage() {
     };
 
     const handleCreate = async () => {
+        // Keresési eredmények törlése új város hozzáadásakor
+        setSearchResult(null);
+        setSearchResultById(null);
+
         await CityService.createCity({ name: newName });
         setNewName('');
         fetchCities();
@@ -33,6 +37,7 @@ function CityPage() {
     };
 
     const handleSearch = async () => {
+        // Keresési eredmények törlése új keresés előtt
         setSearchResult(null);
         setSearchResultById(null);
 
@@ -51,6 +56,7 @@ function CityPage() {
     };
 
     const handleSearchById = async () => {
+        // Keresési eredmények törlése új keresés előtt
         setSearchResult(null);
         setSearchResultById(null);
 

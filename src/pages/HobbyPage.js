@@ -22,6 +22,8 @@ function HobbyPage() {
     };
 
     const handleCreate = async () => {
+        setSearchResult(null);
+        setSearchResultById(null);
         await HobbyService.createHobby({ name: newName });
         setNewName('');
         fetchHobbies();

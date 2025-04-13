@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ActivityService from '../services/activityService';
-import { useNavigate } from 'react-router-dom'; // a navigációhoz szükséges hook
+import { useNavigate } from 'react-router-dom';
 
 function ActivityPage() {
     const [activities, setActivities] = useState([]);
@@ -10,7 +10,7 @@ function ActivityPage() {
     const [searchId, setSearchId] = useState('');
     const [searchResultById, setSearchResultById] = useState(null);
 
-    const navigate = useNavigate(); // a navigációs hook beállítása
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchActivities();
@@ -22,6 +22,10 @@ function ActivityPage() {
     };
 
     const handleCreate = async () => {
+        // Töröljük a keresési eredményeket, amikor új tevékenységet adunk hozzá
+        setSearchResult(null);
+        setSearchResultById(null);
+
         await ActivityService.createActivity({ name: newName });
         setNewName('');
         fetchActivities();
@@ -33,29 +37,27 @@ function ActivityPage() {
     };
 
     const handleSearch = async () => {
-        // Töröljük az előző keresési eredményeket, mielőtt új keresést indítunk
-        setSearchResult(null);
-        setSearchResultById(null);
+        setSearchResult(null); // Töröljük az előző keresési eredményt
+        setSearchResultById(null); // Töröljük az ID szerinti keresési eredményt
 
-        const encodedSearchName = encodeURIComponent(searchName); // URL kódolás
+        const encodedSearchName = encodeURIComponent(searchName);
         try {
             const response = await ActivityService.getActivityByName(encodedSearchName);
             if (response.data && response.data.name) {
-                setSearchResult(response.data); // Ha van találat, azt megjelenítjük
+                setSearchResult(response.data);
             } else {
-                setSearchResult({ error: 'Nincs ilyen activity.' }); // Ha nincs találat
+                setSearchResult({ error: 'Nincs ilyen activity.' });
             }
         } catch (err) {
-            setSearchResult({ error: 'Nincs ilyen activity.' }); // Hiba kezelése
+            setSearchResult({ error: 'Nincs ilyen activity.' });
         }
-        // Keresés után töröljük a kereső szöveget
-        setSearchName('');
+
+        setSearchName(''); // Keresés után töröljük a kereső szöveget
     };
 
     const handleSearchById = async () => {
-        // Töröljük az előző keresési eredményeket, mielőtt új keresést indítunk
-        setSearchResult(null);
-        setSearchResultById(null);
+        setSearchResult(null); // Töröljük az előző keresési eredményt
+        setSearchResultById(null); // Töröljük az ID szerinti keresési eredményt
 
         try {
             const response = await ActivityService.getActivityById(searchId);
@@ -63,20 +65,18 @@ function ActivityPage() {
         } catch (err) {
             setSearchResultById({ error: 'Nincs ilyen ID-vel rendelkező activity.' });
         }
-        // Keresés után töröljük az ID kereső szöveget
-        setSearchId('');
+
+        setSearchId(''); // Keresés után töröljük az ID kereső szöveget
     };
 
-    // Navigálás a főoldalra
     const goToHomePage = () => {
-        navigate('/'); // Visszaviszi a főoldalra
+        navigate('/');
     };
 
     return (
         <div style={{ padding: 20 }}>
             <h2>Tevékenységek kezelése</h2>
 
-            {/* Új activity hozzáadása */}
             <div>
                 <input
                     type="text"
@@ -87,13 +87,12 @@ function ActivityPage() {
                 <button onClick={handleCreate}>Hozzáadás</button>
             </div>
 
-            {/* Keresés név alapján */}
             <div style={{ marginTop: 20 }}>
                 <input
                     type="text"
                     placeholder="Keresés név alapján"
                     value={searchName}
-                    onChange={(e) => setSearchName(e.target.value)}
+                    onChange={(e) => setSearchName(e.target.value)} // Csak a változást kezeljük, nem töröljük a mezőt
                 />
                 <button onClick={handleSearch}>Keresés</button>
 
@@ -108,13 +107,12 @@ function ActivityPage() {
                 )}
             </div>
 
-            {/* Keresés ID alapján */}
             <div style={{ marginTop: 20 }}>
                 <input
                     type="text"
                     placeholder="Keresés ID alapján"
                     value={searchId}
-                    onChange={(e) => setSearchId(e.target.value)}
+                    onChange={(e) => setSearchId(e.target.value)} // Csak a változást kezeljük, nem töröljük a mezőt
                 />
                 <button onClick={handleSearchById}>Keresés ID</button>
 
@@ -129,7 +127,6 @@ function ActivityPage() {
                 )}
             </div>
 
-            {/* Activity lista */}
             <ul style={{ marginTop: 30 }}>
                 {activities.map((activity) => (
                     <li key={activity.id}>
