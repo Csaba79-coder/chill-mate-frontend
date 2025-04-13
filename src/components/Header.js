@@ -11,6 +11,7 @@ function Header() {
                     <li><Link to="/">Főoldal</Link></li>
                     <li><Link to="/activities">Tevékenységek</Link></li>
                     <li><Link to="/cities">Városok</Link></li>
+                    <li><Link to="/hobbies">Kedvenc időtöltés</Link></li>
                 </ul>
             </nav>
         </header>
