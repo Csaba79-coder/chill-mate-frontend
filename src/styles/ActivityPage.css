@@ -1,0 +1,23 @@
+.activity-page {
+    position: relative; /* A pozicionálás alapja */
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.back-button {
+    position: absolute; /* Az abszolút pozicionálás a gombnak */
+    top: 20px; /* A gomb távolsága a felső éltől */
+    right: 20px; /* A gomb távolsága a jobb éltől */
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
