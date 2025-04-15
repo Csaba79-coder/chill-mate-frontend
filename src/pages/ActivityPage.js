@@ -46,10 +46,10 @@ function ActivityPage() {
             if (response.data && response.data.name) {
                 setSearchResult(response.data);
             } else {
-                setSearchResult({ error: 'Nincs ilyen activity.' });
+                setSearchResult({ error: 'Nincs ilyen foglalkozás.' });
             }
         } catch (err) {
-            setSearchResult({ error: 'Nincs ilyen activity.' });
+            setSearchResult({ error: 'Nincs ilyen foglalkozás.' });
         }
 
         setSearchName(''); // Keresés után töröljük a kereső szöveget
@@ -63,7 +63,7 @@ function ActivityPage() {
             const response = await ActivityService.getActivityById(searchId);
             setSearchResultById(response.data);
         } catch (err) {
-            setSearchResultById({ error: 'Nincs ilyen ID-vel rendelkező activity.' });
+            setSearchResultById({ error: 'Nincs ilyen ID-vel rendelkező foglalkozás.' });
         }
 
         setSearchId(''); // Keresés után töröljük az ID kereső szöveget
@@ -80,7 +80,7 @@ function ActivityPage() {
             <div>
                 <input
                     type="text"
-                    placeholder="Új tevékenység neve"
+                    placeholder="Új foglalkozás neve"
                     value={newName}
                     onChange={(e) => setNewName(e.target.value)}
                 />

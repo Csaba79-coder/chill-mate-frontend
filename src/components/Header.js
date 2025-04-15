@@ -9,12 +9,12 @@ function Header() {
             <nav>
                 <ul>
                     <li><Link to="/">Főoldal</Link></li>
-                    <li><Link to="/activities">Tevékenységek</Link></li>
+                    <li><Link to="/activities">Foglalkozások</Link></li>
                     <li><Link to="/cities">Városok</Link></li>
-                    <li><Link to="/hobbies">Kedvenc időtöltés</Link></li>
+                    <li><Link to="/hobbies">Hobbik</Link></li>
                     <li><Link to="/movies">Filmek</Link></li>
                     <li><Link to="/music-genres">Zenei műfajok</Link></li>
-                    <li><Link to="/sports">Kedvenc sportok</Link></li>
+                    <li><Link to="/sports">Sportok</Link></li>
                 </ul>
             </nav>
         </header>
