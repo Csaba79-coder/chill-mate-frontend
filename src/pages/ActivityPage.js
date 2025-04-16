@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import ActivityService from '../services/activityService';
-import { useNavigate } from 'react-router-dom';
 
 function ActivityPage() {
     const [activities, setActivities] = useState([]);
@@ -9,8 +8,6 @@ function ActivityPage() {
     const [searchResult, setSearchResult] = useState(null);
     const [searchId, setSearchId] = useState('');
     const [searchResultById, setSearchResultById] = useState(null);
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         fetchActivities();
@@ -22,7 +19,6 @@ function ActivityPage() {
     };
 
     const handleCreate = async () => {
-        // Töröljük a keresési eredményeket, amikor új tevékenységet adunk hozzá
         setSearchResult(null);
         setSearchResultById(null);
 
@@ -37,8 +33,8 @@ function ActivityPage() {
     };
 
     const handleSearch = async () => {
-        setSearchResult(null); // Töröljük az előző keresési eredményt
-        setSearchResultById(null); // Töröljük az ID szerinti keresési eredményt
+        setSearchResult(null);
+        setSearchResultById(null);
 
         const encodedSearchName = encodeURIComponent(searchName);
         try {
@@ -52,12 +48,12 @@ function ActivityPage() {
             setSearchResult({ error: 'Nincs ilyen esemény.' });
         }
 
-        setSearchName(''); // Keresés után töröljük a kereső szöveget
+        setSearchName('');
     };
 
     const handleSearchById = async () => {
-        setSearchResult(null); // Töröljük az előző keresési eredményt
-        setSearchResultById(null); // Töröljük az ID szerinti keresési eredményt
+        setSearchResult(null);
+        setSearchResultById(null);
 
         try {
             const response = await ActivityService.getActivityById(searchId);
@@ -66,11 +62,7 @@ function ActivityPage() {
             setSearchResultById({ error: 'Nincs ilyen ID-vel rendelkező esemény.' });
         }
 
-        setSearchId(''); // Keresés után töröljük az ID kereső szöveget
-    };
-
-    const goToHomePage = () => {
-        navigate('/');
+        setSearchId('');
     };
 
     return (
@@ -92,7 +84,7 @@ function ActivityPage() {
                     type="text"
                     placeholder="Keresés név alapján"
                     value={searchName}
-                    onChange={(e) => setSearchName(e.target.value)} // Csak a változást kezeljük, nem töröljük a mezőt
+                    onChange={(e) => setSearchName(e.target.value)}
                 />
                 <button onClick={handleSearch}>Keresés</button>
 
@@ -112,7 +104,7 @@ function ActivityPage() {
                     type="text"
                     placeholder="Keresés ID alapján"
                     value={searchId}
-                    onChange={(e) => setSearchId(e.target.value)} // Csak a változást kezeljük, nem töröljük a mezőt
+                    onChange={(e) => setSearchId(e.target.value)}
                 />
                 <button onClick={handleSearchById}>Keresés ID</button>
 

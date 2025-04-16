@@ -10,6 +10,7 @@ import HobbyPage from "./pages/HobbyPage";
 import MoviePage from "./pages/MoviePage";
 import MusicGenrePage from "./pages/MusicGenrePage";
 import SportPage from "./pages/SportPage";
+import UserPage from "./pages/UserPage";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                     <Route path="/movies" element={<MoviePage />} />
                     <Route path="/music-genres" element={<MusicGenrePage />} />
                     <Route path="/sports" element={<SportPage />} />
+                    <Route path="/users" element={<UserPage />} />
                     <Route path="*" element={<HomePage />} />
                 </Routes>
                 <Footer /> {}

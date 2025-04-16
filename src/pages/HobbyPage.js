@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import HobbyService from '../services/hobbyService';
-import { useNavigate } from 'react-router-dom';
 
 function HobbyPage() {
     const [hobbies, setHobbies] = useState([]);
@@ -9,8 +8,6 @@ function HobbyPage() {
     const [searchResult, setSearchResult] = useState(null);
     const [searchId, setSearchId] = useState('');
     const [searchResultById, setSearchResultById] = useState(null);
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         fetchHobbies();
@@ -63,10 +60,6 @@ function HobbyPage() {
             setSearchResultById({ error: 'Nincs ilyen ID-vel rendelkező hobbi.' });
         }
         setSearchId('');
-    };
-
-    const goToHomePage = () => {
-        navigate('/');
     };
 
     return (

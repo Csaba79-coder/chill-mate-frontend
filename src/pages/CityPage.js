@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import CityService from '../services/cityService'; // City service importálása
-import { useNavigate } from 'react-router-dom';
+import CityService from '../services/cityService';
 
 function CityPage() {
     const [cities, setCities] = useState([]);
@@ -9,8 +8,6 @@ function CityPage() {
     const [searchResult, setSearchResult] = useState(null);
     const [searchId, setSearchId] = useState('');
     const [searchResultById, setSearchResultById] = useState(null);
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         fetchCities();
@@ -22,7 +19,6 @@ function CityPage() {
     };
 
     const handleCreate = async () => {
-        // Keresési eredmények törlése új város hozzáadásakor
         setSearchResult(null);
         setSearchResultById(null);
 
@@ -37,7 +33,6 @@ function CityPage() {
     };
 
     const handleSearch = async () => {
-        // Keresési eredmények törlése új keresés előtt
         setSearchResult(null);
         setSearchResultById(null);
 
@@ -56,7 +51,6 @@ function CityPage() {
     };
 
     const handleSearchById = async () => {
-        // Keresési eredmények törlése új keresés előtt
         setSearchResult(null);
         setSearchResultById(null);
 
@@ -67,10 +61,6 @@ function CityPage() {
             setSearchResultById({ error: 'Nincs ilyen ID-vel rendelkező város.' });
         }
         setSearchId('');
-    };
-
-    const goToHomePage = () => {
-        navigate('/');
     };
 
     return (

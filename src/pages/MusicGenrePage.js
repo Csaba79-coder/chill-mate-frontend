@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import MusicGenreService from '../services/musicGenreService';
-import { useNavigate } from 'react-router-dom';
 
 function MusicGenrePage() {
     const [genres, setGenres] = useState([]);
@@ -9,8 +8,6 @@ function MusicGenrePage() {
     const [searchResult, setSearchResult] = useState(null);
     const [searchId, setSearchId] = useState('');
     const [searchResultById, setSearchResultById] = useState(null);
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         fetchGenres();
@@ -63,10 +60,6 @@ function MusicGenrePage() {
             setSearchResultById({ error: 'Nincs ilyen ID-vel rendelkező műfaj.' });
         }
         setSearchId('');
-    };
-
-    const goToHomePage = () => {
-        navigate('/');
     };
 
     return (

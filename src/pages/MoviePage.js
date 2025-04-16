@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import MovieService from '../services/movieService';
-import { useNavigate } from 'react-router-dom';
 
 function MoviePage() {
     const [movies, setMovies] = useState([]);
@@ -9,8 +8,6 @@ function MoviePage() {
     const [searchResult, setSearchResult] = useState(null);
     const [searchId, setSearchId] = useState('');
     const [searchResultById, setSearchResultById] = useState(null);
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         fetchMovies();
@@ -63,10 +60,6 @@ function MoviePage() {
             setSearchResultById({ error: 'Nincs ilyen ID-vel rendelkező film.' });
         }
         setSearchId('');
-    };
-
-    const goToHomePage = () => {
-        navigate('/');
     };
 
     return (

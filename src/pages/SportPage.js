@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SportService from '../services/sportService'; // Sport service importálása
-import { useNavigate } from 'react-router-dom';
+import SportService from '../services/sportService'
 
 function SportPage() {
     const [sports, setSports] = useState([]);
@@ -9,8 +8,6 @@ function SportPage() {
     const [searchResult, setSearchResult] = useState(null);
     const [searchId, setSearchId] = useState('');
     const [searchResultById, setSearchResultById] = useState(null);
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         fetchSports();
@@ -63,10 +60,6 @@ function SportPage() {
             setSearchResultById({ error: 'Nincs ilyen ID-vel rendelkező sport.' });
         }
         setSearchId('');
-    };
-
-    const goToHomePage = () => {
-        navigate('/');
     };
 
     return (
