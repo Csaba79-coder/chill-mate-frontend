@@ -18,12 +18,14 @@ function App() {
                 <Header /> {}
                 <Routes>
                     <Route path="/" element={<HomePage />} />
+                    <Route path="/index.html" element={<HomePage />} /> {}
                     <Route path="/activities" element={<ActivityPage />} />
                     <Route path="/cities" element={<CityPage />} />
                     <Route path="/hobbies" element={<HobbyPage />} />
                     <Route path="/movies" element={<MoviePage />} />
                     <Route path="/music-genres" element={<MusicGenrePage />} />
                     <Route path="/sports" element={<SportPage />} />
+                    <Route path="*" element={<HomePage />} />
                 </Routes>
                 <Footer /> {}
             </div>

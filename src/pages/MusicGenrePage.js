@@ -123,7 +123,9 @@ function MusicGenrePage() {
                 )}
             </div>
 
-            <ul style={{ marginTop: 30 }}>
+            <div className="separator"></div>
+
+            <ul id="entity-list" style={{ marginTop: 30 }}>
                 {genres.map((genre) => (
                     <li key={genre.id}>
                         {genre.genre} (ID: {genre.id})

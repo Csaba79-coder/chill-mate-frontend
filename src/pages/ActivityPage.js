@@ -46,10 +46,10 @@ function ActivityPage() {
             if (response.data && response.data.name) {
                 setSearchResult(response.data);
             } else {
-                setSearchResult({ error: 'Nincs ilyen foglalkozás.' });
+                setSearchResult({ error: 'Nincs ilyen esemény.' });
             }
         } catch (err) {
-            setSearchResult({ error: 'Nincs ilyen foglalkozás.' });
+            setSearchResult({ error: 'Nincs ilyen esemény.' });
         }
 
         setSearchName(''); // Keresés után töröljük a kereső szöveget
@@ -63,7 +63,7 @@ function ActivityPage() {
             const response = await ActivityService.getActivityById(searchId);
             setSearchResultById(response.data);
         } catch (err) {
-            setSearchResultById({ error: 'Nincs ilyen ID-vel rendelkező foglalkozás.' });
+            setSearchResultById({ error: 'Nincs ilyen ID-vel rendelkező esemény.' });
         }
 
         setSearchId(''); // Keresés után töröljük az ID kereső szöveget
@@ -127,7 +127,9 @@ function ActivityPage() {
                 )}
             </div>
 
-            <ul style={{ marginTop: 30 }}>
+            <div className="separator"></div>
+
+            <ul id="entity-list" style={{ marginTop: 30 }}>
                 {activities.map((activity) => (
                     <li key={activity.id}>
                         {activity.name} (ID: {activity.id})

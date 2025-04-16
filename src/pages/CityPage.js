@@ -127,7 +127,9 @@ function CityPage() {
                 )}
             </div>
 
-            <ul style={{ marginTop: 30 }}>
+            <div className="separator"></div>
+
+            <ul id="entity-list" style={{ marginTop: 30 }}>
                 {cities.map((city) => (
                     <li key={city.id}>
                         {city.name} (ID: {city.id})

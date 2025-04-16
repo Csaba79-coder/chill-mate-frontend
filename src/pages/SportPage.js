@@ -70,7 +70,7 @@ function SportPage() {
     };
 
     return (
-        <div style={{ padding: 20 }}>
+        <div style={{padding: 20}}>
             <h2>Sportok kezelése</h2>
 
             <div>
@@ -83,7 +83,7 @@ function SportPage() {
                 <button onClick={handleCreate}>Hozzáadás</button>
             </div>
 
-            <div style={{ marginTop: 20 }}>
+            <div style={{marginTop: 20}}>
                 <input
                     type="text"
                     placeholder="Keresés név alapján"
@@ -95,7 +95,7 @@ function SportPage() {
                 {searchResult && (
                     <div>
                         {searchResult.error ? (
-                            <p style={{ color: 'red' }}>{searchResult.error}</p>
+                            <p style={{color: 'red'}}>{searchResult.error}</p>
                         ) : (
                             <p>Talált: {searchResult.name} (ID: {searchResult.id})</p>
                         )}
@@ -103,7 +103,7 @@ function SportPage() {
                 )}
             </div>
 
-            <div style={{ marginTop: 20 }}>
+            <div style={{marginTop: 20}}>
                 <input
                     type="text"
                     placeholder="Keresés ID alapján"
@@ -115,7 +115,7 @@ function SportPage() {
                 {searchResultById && (
                     <div>
                         {searchResultById.error ? (
-                            <p style={{ color: 'red' }}>{searchResultById.error}</p>
+                            <p style={{color: 'red'}}>{searchResultById.error}</p>
                         ) : (
                             <p>Talált: {searchResultById.name} (ID: {searchResultById.id})</p>
                         )}
@@ -123,11 +123,13 @@ function SportPage() {
                 )}
             </div>
 
-            <ul style={{ marginTop: 30 }}>
+            <div className="separator"></div>
+
+            <ul id="entity-list" style={{marginTop: 30}}>
                 {sports.map((sport) => (
                     <li key={sport.id}>
                         {sport.name} (ID: {sport.id})
-                        <button onClick={() => handleDelete(sport.id)} style={{ marginLeft: 10 }}>
+                        <button onClick={() => handleDelete(sport.id)} style={{marginLeft: 10}}>
                             Törlés
                         </button>
                     </li>

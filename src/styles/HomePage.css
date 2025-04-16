@@ -65,7 +65,24 @@ ul li {
 }
 
 #home-description {
-    font-size: 1.4rem; /* vagy 1.5rem, 18px stb. */
+    font-size: 1.4rem;
     line-height: 1.6;
     color: #333;
+}
+
+#entity-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+#entity-list li {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.separator {
+    border-top: 2px solid #007bff;
+    margin: 30px 0;
 }

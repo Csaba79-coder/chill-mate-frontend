@@ -123,7 +123,9 @@ function HobbyPage() {
                 )}
             </div>
 
-            <ul style={{ marginTop: 30 }}>
+            <div className="separator"></div>
+
+            <ul id="entity-list" style={{ marginTop: 30 }}>
                 {hobbies.map((hobby) => (
                     <li key={hobby.id}>
                         {hobby.name} (ID: {hobby.id})
