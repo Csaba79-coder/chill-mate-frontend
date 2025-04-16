@@ -15,7 +15,7 @@ function App() {
     return (
         <Router>
             <div className="App">
-                <Header /> {/* Header hozzáadása */}
+                <Header /> {}
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/activities" element={<ActivityPage />} />
@@ -25,7 +25,7 @@ function App() {
                     <Route path="/music-genres" element={<MusicGenrePage />} />
                     <Route path="/sports" element={<SportPage />} />
                 </Routes>
-                <Footer /> {/* Footer hozzáadása */}
+                <Footer /> {}
             </div>
         </Router>
     );

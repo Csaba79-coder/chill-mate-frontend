@@ -5,11 +5,22 @@
     margin-top: 20px;
 }
 
-.footer a {
-    text-decoration: none;
-    color: #007bff;
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
-.footer a:hover {
-    text-decoration: underline;
+.footer-content p {
+    font-size: 1.2rem;
+    color: #007bff;
+    margin: 0;
+    font-weight: 500;
+}
+
+.footer-content .chill-logo {
+    height: 60px;
+    width: auto;
 }

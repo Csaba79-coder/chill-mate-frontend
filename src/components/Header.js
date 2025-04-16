@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Navigációhoz
+import {NavLink} from "react-router-dom";
 import "../styles/Header.css";
 
 function Header() {
@@ -8,13 +8,14 @@ function Header() {
             <img src={require("../assets/pannon-logo.png")} alt="Suli Logo" className="logo" />
             <nav>
                 <ul>
-                    <li><Link to="/">Főoldal</Link></li>
-                    <li><Link to="/activities">Foglalkozások</Link></li>
-                    <li><Link to="/cities">Városok</Link></li>
-                    <li><Link to="/hobbies">Hobbik</Link></li>
-                    <li><Link to="/movies">Filmek</Link></li>
-                    <li><Link to="/music-genres">Zenei műfajok</Link></li>
-                    <li><Link to="/sports">Sportok</Link></li>
+                    <li><NavLink to="/" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Főoldal</NavLink></li>
+                    <li><NavLink to="/activities" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Események</NavLink></li>
+                    <li><NavLink to="/cities" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Városok</NavLink></li>
+                    <li><NavLink to="/hobbies" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Hobbik</NavLink></li>
+                    <li><NavLink to="/movies" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Filmek</NavLink></li>
+                    <li><NavLink to="/music-genres" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Zenei műfajok</NavLink></li>
+                    <li><NavLink to="/sports" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Sportok</NavLink></li>
+                    <li><NavLink to="/users" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Emberek</NavLink></li>
                 </ul>
             </nav>
         </header>

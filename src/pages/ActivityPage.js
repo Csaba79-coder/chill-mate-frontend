@@ -75,12 +75,12 @@ function ActivityPage() {
 
     return (
         <div style={{ padding: 20 }}>
-            <h2>Tevékenységek kezelése</h2>
+            <h2>Események kezelése</h2>
 
             <div>
                 <input
                     type="text"
-                    placeholder="Új foglalkozás neve"
+                    placeholder="Új esemény neve"
                     value={newName}
                     onChange={(e) => setNewName(e.target.value)}
                 />

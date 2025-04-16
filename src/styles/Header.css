@@ -21,3 +21,21 @@
     width: 100px;
     height: auto;
 }
+
+.nav-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+.nav-link.active {
+    color: #004b9a;
+    font-weight: bold;
+    text-decoration: underline;
+}
