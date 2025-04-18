@@ -16,6 +16,7 @@ function Header() {
                     <li><NavLink to="/music-genres" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Zenei műfajok</NavLink></li>
                     <li><NavLink to="/sports" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Sportok</NavLink></li>
                     <li><NavLink to="/users" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Emberek</NavLink></li>
+                    <li><NavLink to="/connections" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Kapcsolatok</NavLink></li>
                 </ul>
             </nav>
         </header>
