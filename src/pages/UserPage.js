@@ -17,7 +17,9 @@ function UsersPage() {
     const [music, setMusic] = useState('');
     const [movie, setMovie] = useState('');
     const [event, setEvent] = useState('');
-    const [friend, setFriend] = useState('');
+    const [friendFirstName, setFriendFirstName] = useState('');
+    const [friendMidName, setFriendMidName] = useState('');
+    const [friendLastName, setFriendLastName] = useState('');
 
     useEffect(() => {
         fetchUsers();
@@ -95,11 +97,13 @@ function UsersPage() {
         setMusic('');
         setMovie('');
         setEvent('');
-        setFriend('');
+        setFriendFirstName('');
+        setFriendMidName('');
+        setFriendLastName('');
     };
 
     const handleAddConnections = async () => {
-        if (!city && !hobby && !sport && !music && !movie && !event && !friend) {
+        if (!city && !hobby && !sport && !music && !movie && !event && !friendFirstName && !friendMidName && !friendLastName) {
             alert("Legalább egy mezőt ki kell tölteni!");
             return;
         }
@@ -112,7 +116,9 @@ function UsersPage() {
         if (music) data.music = music;
         if (movie) data.movie = movie;
         if (event) data.event = event;
-        if (friend) data.friend = friend;
+        if (friendFirstName) data.friendFirstName = friendFirstName;
+        if (friendMidName) data.friendMidName = friendMidName;
+        if (friendLastName) data.friendLastName = friendLastName;
 
         try {
             await UserService.addConnectionsToUser(selectedUserId, data);
@@ -276,14 +282,24 @@ function UsersPage() {
                             </div>
 
                             <div>
-                                <label>Barát</label><br />
-                                <input type="text" value={friend} onChange={(e) => setFriend(e.target.value)} />
+                                <label>Barát keresztneve</label><br />
+                                <input type="text" value={friendFirstName} onChange={(e) => setFriendFirstName(e.target.value)} />
                             </div>
-                        </div>
 
-                        <div style={{ marginTop: 10 }}>
-                            <button onClick={handleAddConnections}>Mentés</button>
-                            <button onClick={closeModal} style={{ marginLeft: 10 }}>Mégsem</button>
+                            <div>
+                                <label>Barát középső neve</label><br />
+                                <input type="text" value={friendMidName} onChange={(e) => setFriendMidName(e.target.value)} />
+                            </div>
+
+                            <div>
+                                <label>Barát vezetékneve</label><br />
+                                <input type="text" value={friendLastName} onChange={(e) => setFriendLastName(e.target.value)} />
+                            </div>
+
+                            <div style={{ marginTop: 10 }}>
+                                <button onClick={handleAddConnections}>Mentés</button>
+                                <button onClick={closeModal} style={{ marginLeft: 10 }}>Mégsem</button>
+                            </div>
                         </div>
                     </div>
                 </div>
