@@ -6,6 +6,7 @@ const UserService = {
     getUserById: (id) => api.get(`/users/user-by-id/${id}`),
     deleteUser: (id) => api.delete(`/users/${id}`),
     searchByName: (name) => api.get(`/users/user-by-name/${name}`),
+    addConnectionsToUser: (id, data) => api.put(`/users/${id}/connections`, data),
 };
 
 export default UserService

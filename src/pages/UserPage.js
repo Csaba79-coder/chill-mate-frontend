@@ -8,6 +8,16 @@ function UsersPage() {
     const [searchId, setSearchId] = useState('');
     const [searchResult, setSearchResult] = useState(null);
     const [searchResultById, setSearchResultById] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [selectedUserId, setSelectedUserId] = useState(null);
+
+    const [city, setCity] = useState('');
+    const [hobby, setHobby] = useState('');
+    const [sport, setSport] = useState('');
+    const [music, setMusic] = useState('');
+    const [movie, setMovie] = useState('');
+    const [event, setEvent] = useState('');
+    const [friend, setFriend] = useState('');
 
     useEffect(() => {
         fetchUsers();
@@ -51,7 +61,7 @@ function UsersPage() {
         setSearchResultById(null);
         try {
             const response = await UserService.searchByName(searchName);
-            setSearchResult(response.data);  // A válaszban jönnek a találatok
+            setSearchResult(response.data);
         } catch (err) {
             setSearchResult({ error: 'Nincs ilyen nevű felhasználó.' });
             console.error('Keresési hiba:', err);
@@ -70,6 +80,46 @@ function UsersPage() {
             console.error('Keresés ID alapján hiba:', err);
         }
         setSearchId('');
+    };
+
+    const openModal = (userId) => {
+        setSelectedUserId(userId);
+        setShowModal(true);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+        setCity('');
+        setHobby('');
+        setSport('');
+        setMusic('');
+        setMovie('');
+        setEvent('');
+        setFriend('');
+    };
+
+    const handleAddConnections = async () => {
+        if (!city && !hobby && !sport && !music && !movie && !event && !friend) {
+            alert("Legalább egy mezőt ki kell tölteni!");
+            return;
+        }
+
+        const data = {};
+
+        if (city) data.city = city;
+        if (hobby) data.hobby = hobby;
+        if (sport) data.sport = sport;
+        if (music) data.music = music;
+        if (movie) data.movie = movie;
+        if (event) data.event = event;
+        if (friend) data.friend = friend;
+
+        try {
+            await UserService.addConnectionsToUser(selectedUserId, data);
+            closeModal();
+        } catch (err) {
+            console.error('Kapcsolatok mentési hiba:', err);
+        }
     };
 
     return (
@@ -151,7 +201,6 @@ function UsersPage() {
 
             <div className="separator" style={{ marginTop: 30 }}></div>
 
-            {/* Táblázat a felhasználók listázásához */}
             <table style={{ marginTop: 30, width: '100%', borderCollapse: 'collapse' }}>
                 <thead>
                 <tr>
@@ -170,14 +219,75 @@ function UsersPage() {
                         <td>{user.midName}</td>
                         <td>{user.lastName}</td>
                         <td>
-                            <button onClick={() => handleDelete(user.id)}>
-                                Törlés
-                            </button>
+                            <button onClick={() => openModal(user.id)}>Kapcsolatok</button>
+                            <button onClick={() => handleDelete(user.id)} style={{ marginLeft: '10px' }}>Törlés</button>
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
+
+            {showModal && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0, left: 0, right: 0, bottom: 0,
+                    backgroundColor: 'rgba(0,0,0,0.5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <div style={{
+                        backgroundColor: 'white',
+                        padding: 20,
+                        borderRadius: 8,
+                        minWidth: 300
+                    }}>
+                        <h3>Kapcsolatok hozzáadása</h3>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                            <div>
+                                <label>Város</label><br />
+                                <input type="text" value={city} onChange={(e) => setCity(e.target.value)} />
+                            </div>
+
+                            <div>
+                                <label>Hobbi</label><br />
+                                <input type="text" value={hobby} onChange={(e) => setHobby(e.target.value)} />
+                            </div>
+
+                            <div>
+                                <label>Sport</label><br />
+                                <input type="text" value={sport} onChange={(e) => setSport(e.target.value)} />
+                            </div>
+
+                            <div>
+                                <label>Zenei műfaj</label><br />
+                                <input type="text" value={music} onChange={(e) => setMusic(e.target.value)} />
+                            </div>
+
+                            <div>
+                                <label>Film</label><br />
+                                <input type="text" value={movie} onChange={(e) => setMovie(e.target.value)} />
+                            </div>
+
+                            <div>
+                                <label>Esemény</label><br />
+                                <input type="text" value={event} onChange={(e) => setEvent(e.target.value)} />
+                            </div>
+
+                            <div>
+                                <label>Barát</label><br />
+                                <input type="text" value={friend} onChange={(e) => setFriend(e.target.value)} />
+                            </div>
+                        </div>
+
+                        <div style={{ marginTop: 10 }}>
+                            <button onClick={handleAddConnections}>Mentés</button>
+                            <button onClick={closeModal} style={{ marginLeft: 10 }}>Mégsem</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
