@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import UserService from '../services/userService';
+import Modal from 'react-modal';
 
 function UsersPage() {
     const [users, setUsers] = useState([]);
@@ -10,6 +11,8 @@ function UsersPage() {
     const [searchResultById, setSearchResultById] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [selectedUserId, setSelectedUserId] = useState(null);
+    const [userDetailsModal, setUserDetailsModal] = useState(false);
+    const [userDetails, setUserDetails] = useState({});
 
     const [city, setCity] = useState('');
     const [hobby, setHobby] = useState('');
@@ -124,10 +127,26 @@ function UsersPage() {
 
         try {
             await UserService.addConnectionsToUser(selectedUserId, data);
+            fetchUsers();
             closeModal();
         } catch (err) {
             console.error('Kapcsolatok mentési hiba:', err);
         }
+    };
+
+    const handleUserDetails = async (id) => {
+        try {
+            const response = await UserService.getUserDetailedById(id);
+            setUserDetails(response.data);
+            setUserDetailsModal(true);
+        } catch (error) {
+            console.error("Hiba a felhasználó adatainak lekérésekor:", error);
+        }
+    };
+
+    const closeUserDetailsModal = () => {
+        setUserDetailsModal(false);
+        setUserDetails({});
     };
 
     return (
@@ -228,12 +247,136 @@ function UsersPage() {
                         <td>{user.lastName}</td>
                         <td>
                             <button onClick={() => openModal(user.id)}>Kapcsolatok</button>
+                            <button onClick={() => handleUserDetails(user.id)} style={{ marginLeft: '10px' }}>Megtekintés</button>
                             <button onClick={() => handleDelete(user.id)} style={{ marginLeft: '10px' }}>Törlés</button>
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
+
+            {userDetailsModal && (
+                <Modal isOpen={userDetailsModal} onRequestClose={closeUserDetailsModal} contentLabel="Felhasználó részletei">
+                    <h3>Felhasználó részletei</h3>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '20px' }}>
+                        <thead>
+                        <tr>
+                            <th style={{ textAlign: 'left', padding: '10px', borderBottom: '1px solid #ddd' }}>Kulcs</th>
+                            <th style={{ textAlign: 'left', padding: '10px', borderBottom: '1px solid #ddd' }}>Érték</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>ID</td>
+                            <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{userDetails.id}</td>
+                        </tr>
+                        <tr>
+                            <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>Keresztnév</td>
+                            <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{userDetails.firstName}</td>
+                        </tr>
+                        <tr>
+                            <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>Középső név</td>
+                            <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{userDetails.midName || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>Vezetéknév</td>
+                            <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{userDetails.lastName}</td>
+                        </tr>
+                        <tr>
+                            <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>Lakhely (város)</td>
+                            <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{userDetails.city?.name}</td>
+                        </tr>
+
+                        {/* Hobbik */}
+                        {userDetails.hobbies?.length > 0 && (
+                            <tr>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>Hobbik</td>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
+                                    <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                                        {userDetails.hobbies.map((hobby, index) => (
+                                            <li key={index}>{hobby.name}</li>
+                                        ))}
+                                    </ul>
+                                </td>
+                            </tr>
+                        )}
+
+                        {/* Sportok */}
+                        {userDetails.sports?.length > 0 && (
+                            <tr>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>Sportok</td>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
+                                    <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                                        {userDetails.sports.map((sport, index) => (
+                                            <li key={index}>{sport.name}</li>
+                                        ))}
+                                    </ul>
+                                </td>
+                            </tr>
+                        )}
+
+                        {/* Zenei műfajok */}
+                        {userDetails.musicGenres?.length > 0 && (
+                            <tr>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>Zenei műfajok</td>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
+                                    <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                                        {userDetails.musicGenres.map((genre, index) => (
+                                            <li key={index}>{genre.genre}</li>
+                                        ))}
+                                    </ul>
+                                </td>
+                            </tr>
+                        )}
+
+                        {/* Filmek */}
+                        {userDetails.movies?.length > 0 && (
+                            <tr>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>Filmek</td>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
+                                    <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                                        {userDetails.movies.map((movie, index) => (
+                                            <li key={index}>{movie.title}</li>
+                                        ))}
+                                    </ul>
+                                </td>
+                            </tr>
+                        )}
+
+                        {/* Események */}
+                        {userDetails.activities?.length > 0 && (
+                            <tr>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>Események</td>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
+                                    <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                                        {userDetails.activities.map((activity, index) => (
+                                            <li key={index}>{activity.name}</li>
+                                        ))}
+                                    </ul>
+                                </td>
+                            </tr>
+                        )}
+
+                        {/* Barátok */}
+                        {userDetails.friends?.length > 0 && (
+                            <tr>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>Barátok</td>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
+                                    <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                                        {userDetails.friends.map((friend, index) => (
+                                            <li key={index}>
+                                                {friend.firstName} {friend.midName ? friend.midName + ' ' : ''}{friend.lastName}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </td>
+                            </tr>
+                        )}
+                        </tbody>
+                    </table>
+                    <button onClick={closeUserDetailsModal} style={{ padding: '10px 20px', backgroundColor: '#4CAF50', color: 'white', border: 'none', cursor: 'pointer' }}>Vissza</button>
+                </Modal>
+            )}
 
             {showModal && (
                 <div style={{
