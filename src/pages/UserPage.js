@@ -120,6 +120,8 @@ function UsersPage() {
         if (friendMidName) data.friendMidName = friendMidName;
         if (friendLastName) data.friendLastName = friendLastName;
 
+        console.log('Küldött adatok:', data);
+
         try {
             await UserService.addConnectionsToUser(selectedUserId, data);
             closeModal();
